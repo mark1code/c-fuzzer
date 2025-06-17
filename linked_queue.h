@@ -4,10 +4,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define SIZE_INPUT 1024
+#define INPUT_SIZE 1024
 
 typedef struct Node {
-    char input[SIZE_INPUT];
+    char input[INPUT_SIZE];
     struct Node *next;
 } Node;
 
