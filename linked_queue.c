@@ -22,8 +22,8 @@ void queue_destroy(Queue *q) {
 int enqueue(Queue *q, const char *input) {
     Node *new_node = malloc(sizeof(Node));
     if(!new_node) return -1;
-    strncpy(new_node->input, input, SIZE_INPUT - 1);
-    new_node->input[SIZE_INPUT - 1] = '\0';
+    strncpy(new_node->input, input, INPUT_SIZE - 1);
+    new_node->input[INPUT_SIZE - 1] = '\0';
     new_node->next = NULL;
 
     if(q->tail == NULL) {

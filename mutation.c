@@ -10,7 +10,7 @@ static char* copy_input(const char *input) {
 
 char* mutate(const char *input) {
     char *mutated = copy_input(input);
-    if (!mutated) return input;
+    if (!mutated) return NULL;
     switch (rand() % 3) {
         case 0:
             mutated = char_delete(mutated);
