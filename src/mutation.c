@@ -11,6 +11,12 @@ static char* copy_input(const char *input) {
 char* mutate(const char *input) {
     char *mutated = copy_input(input);
     if (!mutated) return NULL;
+
+    if (strlen(mutated) == 0) {
+        mutated[0] = (char)(rand() % 26 + 'a');
+        mutated[1] = '\0';
+    }
+
     switch (rand() % 3) {
         case 0:
             mutated = char_delete(mutated);
