@@ -2,9 +2,9 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/wait.h>
+#include <time.h>
 #include "mutation.h"
 #include "linked_queue.h"
-#include <time.h>
 
 Queue* generate_inputs(int seed_count, int depth) {
     Queue* inputs = queue_create();
