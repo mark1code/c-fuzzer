@@ -1,4 +1,4 @@
-
+#include <time.h>
 #include "unity.h"
 #include "linked_queue.h"
 #include "mutation.h"
@@ -7,7 +7,7 @@ static Queue* q;
 static char *base;
 
 void setUp(void) {
-    srand(123);
+    srand(time(NULL));
     q = queue_create();         
     base = strdup("Linoone");  
 }
@@ -72,9 +72,55 @@ void test_queue_unique_single(void) {
 
 void test_char_delete(void) {
    char *res = char_delete(strdup(base));
-   TEST_ASSERT_NOT_NULL(res);           
+   TEST_ASSERT_NOT_NULL(res);
+   TEST_ASSERT_NOT_EQUAL(0, strcmp(base, res));
+   TEST_ASSERT_NOT_EQUAL(strlen(base), strlen(res));
    printf("After char_delete: %s\n", res);
    free(res);
+}
+
+void test_char_insert(void) {
+    char *res = char_insert(strdup(base));
+    TEST_ASSERT_NOT_NULL(res);
+    TEST_ASSERT_NOT_EQUAL(0, strcmp(base, res));
+    TEST_ASSERT_NOT_EQUAL(strlen(base), strlen(res));
+    printf("After char_insert: %s\n", res);
+    free(res);
+}
+
+void test_char_flip(void) {
+    char *res = char_flip(strdup(base));
+    TEST_ASSERT_NOT_NULL(res);
+    TEST_ASSERT_NOT_EQUAL(0, strcmp(base, res));
+    TEST_ASSERT_EQUAL(strlen(base), strlen(res));
+    printf("After char_flip: %s\n", res);
+    free(res);
+}
+
+void test_char_flip_changes_one(void) {
+    char *res = char_flip(strdup(base));
+    TEST_ASSERT_NOT_NULL(res);
+
+    int diff = 0;
+    for (int i = 0; base[i] && res[i]; i++) {
+        if (base[i] != res[i]) diff++;
+    }
+    TEST_ASSERT_EQUAL(1, diff);
+    free(res);
+}
+
+void test_mutate(void) {
+    char *res = mutate(strdup(base));
+    TEST_ASSERT_NOT_NULL(res);
+    TEST_ASSERT_NOT_EQUAL(0, strcmp(base, res));
+    free(res);
+}
+
+void test_mutate_empty(void) {
+    const char *empty_str = "";
+    char *res = mutate(strdup(empty_str));
+    TEST_ASSERT_EQUAL(1, strlen(res));
+    free(res);
 }
 
 void run_tests(void) {
@@ -85,9 +131,15 @@ void run_tests(void) {
     RUN_TEST(test_queue_dequeue_empty);
     RUN_TEST(test_queue_dequeue_thrice);
     RUN_TEST(test_queue_unique_single);
-
+    
     // MUTATION
     RUN_TEST(test_char_delete);
+    RUN_TEST(test_char_insert);
+    RUN_TEST(test_char_flip);
+    RUN_TEST(test_char_flip_changes_one);
+    RUN_TEST(test_mutate);
+    RUN_TEST(test_mutate_empty);
+
 }
 
 int main(void) {

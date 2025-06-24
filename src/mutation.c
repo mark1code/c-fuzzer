@@ -15,6 +15,7 @@ char* mutate(const char *input) {
     if (strlen(mutated) == 0) {
         mutated[0] = (char)(rand() % 26 + 'a');
         mutated[1] = '\0';
+        return mutated;
     }
 
     switch (rand() % 3) {

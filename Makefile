@@ -25,6 +25,6 @@ test: $(TEST_TARGET)
 $(TEST_TARGET): $(TEST_SRC) $(TEST_FILES)
 	$(CC) $(CFLAGS) $(TEST_INCLUDES) -o $@ $^
 	./$(TEST_TARGET) 
-
+	rm $(TEST_TARGET)
 clean:
 	rm -f $(TARGET) $(TEST_TARGET)
